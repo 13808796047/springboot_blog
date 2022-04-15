@@ -18,6 +18,12 @@ public class ArticleController {
     private ArticleService articleService;
 
 
+    @GetMapping
+    public R index(Integer pageNum, Integer pageSize, Long categoryId) {
+        return articleService.articleList(pageNum, pageSize, categoryId);
+
+    }
+
     @GetMapping("/hot")
     public R hotArticleList() {
         return articleService.getHotArticleList();

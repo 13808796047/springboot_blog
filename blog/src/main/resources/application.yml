@@ -10,6 +10,10 @@ spring:
     multipart:
       max-file-size: 2MB
       max-request-size: 5MB
+  main:
+    allow-circular-references: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
 mybatis-plus:
   configuration:
     # 日志

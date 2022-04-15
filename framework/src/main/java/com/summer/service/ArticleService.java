@@ -14,5 +14,7 @@ import com.summer.utils.R;
 public interface ArticleService extends IService<Article> {
 
     R getHotArticleList();
+
+    R articleList(Integer pageNum, Integer pageSize, Long categoryId);
 }
 

@@ -2,6 +2,7 @@ package com.summer.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.summer.entity.Category;
+import com.summer.utils.R;
 
 
 /**
@@ -12,5 +13,6 @@ import com.summer.entity.Category;
  */
 public interface CategoryService extends IService<Category> {
 
+    R getCategoryList();
 }
 
