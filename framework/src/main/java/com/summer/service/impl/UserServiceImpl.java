@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -61,5 +62,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LoginVo loginVo = new LoginVo(token, userVo);
 
         return R.success(loginVo);
+    }
+
+    @Override
+    public R logout() {
+        // 获取token解析userId
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        // 获取UserId
+        Long userId = loginUser.getUser().getId();
+        // 删除redis中的用户信息
+        redisCache.deleteObject("login:" + userId);
+
+        return R.success();
     }
 }

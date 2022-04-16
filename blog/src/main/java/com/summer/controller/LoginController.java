@@ -27,4 +27,9 @@ public class LoginController {
         }
         return userService.login(user);
     }
+
+    @PostMapping("/logout")
+    public R logout() {
+        return userService.logout();
+    }
 }

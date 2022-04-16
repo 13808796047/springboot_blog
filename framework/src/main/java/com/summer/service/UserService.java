@@ -14,5 +14,7 @@ import com.summer.utils.R;
 public interface UserService extends IService<User> {
 
     R login(User user);
+
+    R logout();
 }
 
