@@ -5,10 +5,7 @@ import com.summer.entity.LoginUser;
 import com.summer.entity.User;
 import com.summer.mapper.UserMapper;
 import com.summer.service.UserService;
-import com.summer.utils.BeanCopyUtils;
-import com.summer.utils.JwtUtil;
-import com.summer.utils.R;
-import com.summer.utils.RedisCache;
+import com.summer.utils.*;
 import com.summer.vo.LoginVo;
 import com.summer.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
@@ -75,5 +72,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         redisCache.deleteObject("login:" + userId);
 
         return R.success();
+    }
+
+    @Override
+    public R getUserInfo() {
+        // 获取当前用户ID
+        Long userId = SecurityUtils.getUserId();
+        // 根据用户Id查询用户信息
+        User user = getById(userId);
+        // 封装成userInfoVo
+        UserVo userVo = BeanCopyUtils.copyBean(user, UserVo.class);
+        return R.success(userVo);
     }
 }

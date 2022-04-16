@@ -16,5 +16,7 @@ public interface UserService extends IService<User> {
     R login(User user);
 
     R logout();
+
+    R getUserInfo();
 }
 
