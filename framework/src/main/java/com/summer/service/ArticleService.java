@@ -16,5 +16,7 @@ public interface ArticleService extends IService<Article> {
     R getHotArticleList();
 
     R articleList(Integer pageNum, Integer pageSize, Long categoryId);
+
+    R getArticleDetail(Long id);
 }
 

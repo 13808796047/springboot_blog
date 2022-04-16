@@ -86,4 +86,18 @@ public class R<T> {
                 .build();
     }
 
+    /**
+     * response error result wrapper.
+     *
+     * @param message error message
+     * @param <T>     type of data class
+     * @return response result
+     */
+    public static <T> R<T> fail(String status, String message) {
+        return R.<T>builder()
+                .message(message)
+                .status(status)
+                .timestamp(System.currentTimeMillis())
+                .build();
+    }
 }

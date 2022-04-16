@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summer.constants.ArticleConstant;
 import com.summer.entity.Article;
+import com.summer.entity.Category;
 import com.summer.mapper.ArticleMapper;
 import com.summer.service.ArticleService;
 import com.summer.service.CategoryService;
 import com.summer.utils.BeanCopyUtils;
 import com.summer.utils.R;
+import com.summer.vo.ArticleVo;
 import com.summer.vo.ArticlesVo;
 import com.summer.vo.HotArticleVo;
 import com.summer.vo.PageVo;
@@ -81,5 +83,21 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         List<ArticlesVo> articlesVos = BeanCopyUtils.copyBeanList(records, ArticlesVo.class);
         PageVo pageVo = new PageVo(articlesVos, page.getTotal());
         return R.success(pageVo);
+    }
+
+    @Override
+    public R getArticleDetail(Long id) {
+        // 根据Id查询文章
+        Article article = getById(id);
+        // 转换成Vo
+        ArticleVo articleVo = BeanCopyUtils.copyBean(article, ArticleVo.class);
+        // 根据分类ID查询分类名
+        Long categoryId = articleVo.getCategoryId();
+        Category category = categoryService.getById(categoryId);
+        if (category != null) {
+            articleVo.setCategoryName(category.getName());
+        }
+        // 封装响应
+        return R.success(articleVo);
     }
 }

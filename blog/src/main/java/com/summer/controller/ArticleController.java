@@ -4,6 +4,7 @@ import com.summer.service.ArticleService;
 import com.summer.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,5 +28,11 @@ public class ArticleController {
     @GetMapping("/hot")
     public R hotArticleList() {
         return articleService.getHotArticleList();
+    }
+
+    @GetMapping("/{id}")
+    public R show(@PathVariable Long id) {
+
+        return articleService.getArticleDetail(id);
     }
 }
